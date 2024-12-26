@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"net/http"
 )
 
 func handleRequests(reqs <-chan request) {
@@ -18,6 +19,7 @@ type request struct {
 }
 
 func main() {
+/*
 	reqs := make(chan request, 100)
 	go handleRequests(reqs)
 	for i := 0; i < 4; i++ {
@@ -27,6 +29,12 @@ func main() {
 
 	time.Sleep(5 * time.Second)
 	fmt.Println("5 seconds passed, killing server")
+*/
+	servm := http.NewServeMux()
+	var serv http.Server
+	serv.Handler = servm
+	serv.Addr = ":8080"
+	serv.ListenAndServe()
 }
 
 func handleRequest(req request) {
