@@ -31,6 +31,7 @@ func main() {
 	fmt.Println("5 seconds passed, killing server")
 */
 	servm := http.NewServeMux()
+	servm.Handle("/", http.FileServer(http.Dir(".")))
 	var serv http.Server
 	serv.Handler = servm
 	serv.Addr = ":8080"
